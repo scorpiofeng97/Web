@@ -1,0 +1,5 @@
+-i https://pypi.tuna.tsinghua.edu.cn/simple
+Django~=1.11
+
+#从当前的setup.py中查找其他依赖项
+-e .

@@ -22,5 +22,5 @@ class Comment(models.Model):
     created_time = models.DateTimeField(auto_now_add=True,verbose_name="创建时间")
 
     class Meta:
-        verbose_name = verbosr_name_plural = "评论"
+        verbose_name = verbose_name_plural = "评论"
 

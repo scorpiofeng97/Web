@@ -18,9 +18,14 @@ class Link(models.Model):
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name="状态")
     weight = models.PositiveIntegerField(default=1, choices=zip(range(1, 6), range(1, 6)), verbose_name="权重",
                                          help_text="权重高展示顺序在前")
+    owner = models.ForeignKey(User, verbose_name="作者")
+    create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 
     class Meta:
         verbose_name = verbose_name_plural = "友链"
+
+    def __str__(self):
+        return self.title
 
 
 class SideBar(models.Model):

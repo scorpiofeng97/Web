@@ -69,9 +69,9 @@ class Post(models.Model):
         verbose_name = verbose_name_plural = "文章"
         ordering = ['-id']  # 根据id进行降序排序
 
+    def __str__(self):
+        return self.title
+
     @classmethod
     def get_all_normal(cls):
         return cls.objects.filter(status=Post.STATUS_NORMAL)
-
-    def __str__(self):
-        return self.title

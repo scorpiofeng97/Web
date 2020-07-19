@@ -17,7 +17,7 @@ def post_list(request, category_id=None, tag_id=None):
             post_list = tag.post_set.filter(status=Post.STATUS_NORMAL)
 
     else:
-        post_list = Post.objects.filter(status=Post.STATUS_NORMAL)
+        post_list = Post.get_all_normal()
         if category_id:
             post_list = post_list.filter(category_id=category_id)
 

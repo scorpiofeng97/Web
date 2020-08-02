@@ -25,6 +25,23 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    @classmethod
+    def get_navs(cls):
+        categories = cls.objects.filter(status=cls.STATUS_NORMAL)
+        nav_categories = []
+        normal_categories = []
+
+        for category in categories:
+            if category.is_nav:
+                nav_categories.append(category)
+            else:
+                normal_categories.append(category)
+
+        return {
+            'navs': nav_categories,
+            'categories': normal_categories,
+        }
+
 
 class Tag(models.Model):
     STATUS_NORMAL = 1
@@ -80,7 +97,7 @@ class Post(models.Model):
             tag = None
             post_list = []
         else:
-            post_list = tag.post_set.filter(status=Post.STATUS_NORMAL)\
+            post_list = tag.post_set.filter(status=Post.STATUS_NORMAL) \
                 .select_related('owner', 'category')
         return post_list, tag
 
@@ -99,6 +116,3 @@ class Post(models.Model):
     @classmethod
     def latest_posts(cls):
         return cls.objects.filter(status=Post.STATUS_NORMAL)
-
-
-

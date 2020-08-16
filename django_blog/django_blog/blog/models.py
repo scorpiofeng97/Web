@@ -80,6 +80,8 @@ class Post(models.Model):
     category = models.ForeignKey(Category, verbose_name="分类")
     tag = models.ForeignKey(Tag, verbose_name="标签")
     owner = models.ForeignKey(User, verbose_name="作者")
+    pv = models.PositiveIntegerField(default=1)
+    uv = models.PositiveIntegerField(default=1)
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
     class Meta:
@@ -88,6 +90,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def hot_post(cls):
+        return cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-pv')
 
     @staticmethod
     def get_by_tag(tag_id):
